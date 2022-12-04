@@ -88,22 +88,19 @@ class GPTSummarization(pl.LightningModule):
         loss, logits = self(batch)
         self.train_loss.append(loss.detach().cpu().numpy())
         if loss == 0:
-            return None
-        return {"train_loss":loss}
+        return loss
 
     def validation_step(self, batch, batch_idx):
         loss, logits = self(batch)
         self.val_loss.append(loss.detach().cpu().numpy())
         if loss == 0:
-            return None
-        return {"valid_loss":loss}
+        return loss
 
     def test_step(self, batch, batch_idx):
         loss, logits = self(batch)
         self.test_loss.append(loss.detach().cpu().numpy())
         if loss == 0:
-            return None
-        return {"test_loss":loss}
+        return loss
 
     def configure_optimizers(self):
         optimizer_grouped_parameters = [
